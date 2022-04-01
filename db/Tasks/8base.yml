@@ -1,6 +1,7 @@
 functions:
   taskFinished:
-    type: resolver
+    type: webhook
     handler:
-      code: src/resolvers/taskFinished/handler.js
-    schema: src/resolvers/taskFinished/schema.graphql
+      code: src/webhooks/taskFinished/handler.js
+    path: /webhook
+    method: POST

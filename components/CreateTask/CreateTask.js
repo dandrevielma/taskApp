@@ -2,7 +2,6 @@ import {useState} from 'react';
 import styles from '../Task/Card.module.css';
 const { addTask } = require('../../db/index');
 
-
 const CreateTask = (props) => {
     const [state, setState] = useState({
         title: '',
