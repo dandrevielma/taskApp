@@ -2,18 +2,35 @@ import { useState, useEffect } from 'react';
 import styles from '../styles/Home.module.css'
 import Task from '../components/Task/Task'
 import CreateTask from '../components/CreateTask/CreateTask'
-const { showTasks, finishTask, deleteTask } = require('../db/index');
+const { showTasks, deleteTask } = require('../db/index');
 
 
 export default function Home() {
 
   const [tasks,setTasks] = useState([])
+  const [currentTaskList, setCurrentTaskList] = useState('pending');
+  const [tasksDone, setTasksDone] = useState(0);
+  const [tasksPending, setTasksPending] = useState(0);
   const [update, setUpdate] = useState(0)
+  const handleCurrentTaskList = (current) => {
+    setCurrentTaskList(current)
+  }
+  const getTasksStatus = (status) => {
+    if (status == 'done'){
+      setTasksDone(tasks.filter(task => task.finished == true).length)
+    }
+    else{
+      setTasksPending(tasks.filter(task => task.finished == false).length)
+    }
+  }
+  let currentList = currentTaskList == 'pending' ? tasks.filter(task => task.finished == false) : tasks.filter(task => task.finished == true)
   useEffect( () => {
     showTasks().then(({tasksList}) => {setTasks(tasksList.items)})
+    currentList = currentTaskList == 'pending' ? tasks.filter(task => task.finished == false) : tasks.filter(task => task.finished == true);
+    getTasksStatus();
   },[update])
   
-
+  
   return (
     <>
       <div className={styles.bg}>
@@ -21,13 +38,13 @@ export default function Home() {
           <div className={styles.title}>
             You have
             <span className={styles.text_purple}>
-            &nbsp; 3 &nbsp;
+            &nbsp; {tasksPending.length + 1} &nbsp;
             </span>
             tasks pending
           </div>
           <div className={styles.rounded_title}>
             <span className={styles.text_purple}>
-            3 &nbsp;
+            {tasksDone.length + 1} &nbsp;
             </span>
             tasks done
           </div>
@@ -51,23 +68,32 @@ export default function Home() {
               </div>
               <div>
                 <ul className={styles.select_status}>
-                  <li>Pending</li>
-                  <li>Done</li>
+                  <li className={currentTaskList == 'pending' ? styles.purple : null}>
+                    <a className={styles.current_task_list_selector} onClick={() => handleCurrentTaskList('pending')}>
+                      Pending
+                    </a>
+                  </li>
+                  <li className={currentTaskList == 'done' ? styles.purple : null}>
+                    <a className={styles.current_task_list_selector} onClick={() => handleCurrentTaskList('done')}>
+                      Done
+                    </a>
+                  </li>
                 </ul>
               </div>
             </div>
             <div className={styles.tasks}>
               {
-                tasks.map((task, index) => {
+                currentList.map((task, index) => {
                   return(
                     <Task
                       title={task.title}
+                      finished={task.finished}
                       updating={setUpdate}
                       description={task.description}
                       key={task.id}
                       id={task.id}
                       delete={deleteTask}
-                      finish={finishTask}/>
+                      />
                   )
                 })
               }

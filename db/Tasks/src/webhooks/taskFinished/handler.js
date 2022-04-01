@@ -34,7 +34,6 @@ module.exports = async ({body}) => {
   return {
     statusCode: 200,
     body: JSON.stringify({
-      result: `Webhook received: ${parseBody.id} ${parseBody.finished}`,
       finished: parseBody.finished,
       id: parseBody.id
     }),

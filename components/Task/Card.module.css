@@ -20,13 +20,19 @@
 .buttons{
     display: flex;
     justify-content: space-between;
+    cursor: pointer;
+
 }
 
 .buttons_2{
     display: flex;
+    cursor: pointer;
+
 }
 .buttons_2 div:nth-child(2){
     margin-left: 15px;
+    cursor: pointer;
+
 }
 
 .button_primary, .button_secondary {
@@ -34,6 +40,8 @@
     padding: 0px;
     display: flex;
     align-content: center;
+    cursor: pointer;
+
 }
 .button_primary :hover{
     border: 2px solid #c2c2c2;
@@ -73,4 +81,6 @@
     display: flex;
     justify-content: end;
     margin-top: 10px;
+    cursor: pointer;
+
 }

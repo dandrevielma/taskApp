@@ -1,15 +1,19 @@
 import { updateTask } from '../../db/index';
 import styles from './Card.module.css'
+import axios from 'axios'
 
 const Task = (props) => {
     
-    const updatingDelete = () => {
+    const updatingDelete = async () => {
         props.delete(props.id);
-        props.updating(+1)
+        await props.updating(Math.random)
     }
-    const updatingFinish = () => {
-        props.finish(props.id, true)
-        props.updating(+1)
+    const updatingFinish = async () => {
+        axios.post('https://api.8base.com/ckymbkwiz02w709mm5haec39s/webhook/webhook', {
+            id: props.id,
+            finished: !props.finished
+          })
+        await props.updating(Math.random)
     }
     
   return (
