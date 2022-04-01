@@ -27,13 +27,16 @@ const token = "5df85bc3-bf5e-49ea-b6de-f3f8470880f2"
     finished
   });
 };
-module.exports = async (event, ctx) => {
+module.exports = async ({body}) => {
   const message = 'Task done';
-  finishTask(id, finished)
+  const parseBody = JSON.parse(body)
+  await finishTask(parseBody.id, parseBody.finished)
   return {
     statusCode: 200,
     body: JSON.stringify({
-      result: `Webhook received: ${message}`,
+      result: `Webhook received: ${parseBody.id} ${parseBody.finished}`,
+      finished: parseBody.finished,
+      id: parseBody.id
     }),
   };
 };
