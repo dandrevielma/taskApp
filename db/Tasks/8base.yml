@@ -1,0 +1,6 @@
+functions:
+  taskFinished:
+    type: resolver
+    handler:
+      code: src/resolvers/taskFinished/handler.js
+    schema: src/resolvers/taskFinished/schema.graphql
