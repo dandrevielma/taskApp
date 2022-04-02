@@ -12,23 +12,28 @@ export default function Home() {
   const [tasksDone, setTasksDone] = useState(0);
   const [tasksPending, setTasksPending] = useState(0);
   const [update, setUpdate] = useState(0)
+
   const handleCurrentTaskList = (current) => {
     setCurrentTaskList(current)
   }
-  const getTasksStatus = (status) => {
-    if (status == 'done'){
+  const getTasksStatus = () => {
       setTasksDone(tasks.filter(task => task.finished == true).length)
-    }
-    else{
       setTasksPending(tasks.filter(task => task.finished == false).length)
-    }
   }
   let currentList = currentTaskList == 'pending' ? tasks.filter(task => task.finished == false) : tasks.filter(task => task.finished == true)
+
   useEffect( () => {
+    getTasksStatus()
+  })
+  const updateTasks = () => {
     showTasks().then(({tasksList}) => {setTasks(tasksList.items)})
+  }
+  useEffect( () => {
+    updateTasks()
     currentList = currentTaskList == 'pending' ? tasks.filter(task => task.finished == false) : tasks.filter(task => task.finished == true);
-    getTasksStatus();
+
   },[update])
+
   
   
   return (
@@ -38,13 +43,13 @@ export default function Home() {
           <div className={styles.title}>
             You have
             <span className={styles.text_purple}>
-            &nbsp; {tasksPending.length + 1} &nbsp;
+            &nbsp; {tasksPending} &nbsp;
             </span>
             tasks pending
           </div>
           <div className={styles.rounded_title}>
             <span className={styles.text_purple}>
-            {tasksDone.length + 1} &nbsp;
+            {tasksDone} &nbsp;
             </span>
             tasks done
           </div>
@@ -93,6 +98,7 @@ export default function Home() {
                       key={task.id}
                       id={task.id}
                       delete={deleteTask}
+                      getTasksStatus={getTasksStatus}
                       />
                   )
                 })

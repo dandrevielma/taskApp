@@ -10,12 +10,10 @@ const CreateTask = (props) => {
     const handleTitleChange = (e) => {
         const value = e.target.value;
         setState({...state, title:value})
-        console.log(value);
     }
     const handleDescChange = (e) => {
         const value = e.target.value;
         setState({...state, description:value})
-        console.log(value);
     }
     const addAndRefresh = async () => {
         const title = document.getElementById('title');
