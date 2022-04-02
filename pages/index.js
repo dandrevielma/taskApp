@@ -4,9 +4,7 @@ import Task from '../components/Task/Task'
 import CreateTask from '../components/CreateTask/CreateTask'
 const { showTasks, deleteTask } = require('../db/index');
 
-
 export default function Home() {
-
   const [tasks,setTasks] = useState([])
   const [currentTaskList, setCurrentTaskList] = useState('pending');
   const [tasksDone, setTasksDone] = useState(0);
@@ -34,8 +32,6 @@ export default function Home() {
 
   },[update])
 
-  
-  
   return (
     <>
       <div className={styles.bg}>
@@ -62,8 +58,7 @@ export default function Home() {
               </div>
             </div>
             <div className={styles.new_task}>
-              <CreateTask updating={setUpdate} />
-
+              <CreateTask setUpdate={setUpdate} />
             </div>
           </div>
           <div className={styles.right_content}>
@@ -93,12 +88,13 @@ export default function Home() {
                     <Task
                       title={task.title}
                       finished={task.finished}
-                      updating={setUpdate}
+                      setUpdate={setUpdate}
                       description={task.description}
                       key={task.id}
                       id={task.id}
                       delete={deleteTask}
                       getTasksStatus={getTasksStatus}
+                      currentTaskList={currentTaskList}
                       />
                   )
                 })

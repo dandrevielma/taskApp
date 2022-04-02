@@ -1,26 +1,27 @@
 import { updateTask } from '../../db/index';
+import { useState } from 'react';
 import styles from './Card.module.css'
 import axios from 'axios'
 
 const Task = (props) => {
-    
+    const [done, setDone] = useState(false);
     const updatingDelete = async () => {
-        props.delete(props.id);
-        await props.updating(Math.random)
-        await props.getTasksStatus()
+        await props.delete(props.id);
+        props.setUpdate(Math.random)
+        props.getTasksStatus()
     }
     const updatingFinish = async () => {
-        axios.post('https://api.8base.com/ckymbkwiz02w709mm5haec39s/webhook/webhook', {
+        await axios.post('https://api.8base.com/ckymbkwiz02w709mm5haec39s/webhook/webhook', {
             id: props.id,
             finished: !props.finished
           })
-        await props.updating(Math.random)
-        await props.getTasksStatus()
+        props.setUpdate(Math.random)
+        props.getTasksStatus()
+        setDone(true);
     }
     
   return (
     <>
-
         <div className={styles.card}>
             <div className={styles.title}>
                 {props.title}
@@ -30,10 +31,14 @@ const Task = (props) => {
             </div>
             <div className={styles.buttons}>
                 <div className={styles.button_secondary} onClick={() => updatingDelete()}><DeleteIcon color='#9500f9' width='40px' height='40px' /></div>
-                <div className={styles.buttons_2}>
-                    <div className={styles.button_secondary}><EditIcon color='#9500f9' width='40px' height='40px' /></div>
-                    <div className={styles.button_primary} onClick={() => updatingFinish()}><CheckIcon color='#fff' width='40px' height='40px' /></div>
-                </div>
+                {
+                    props.currentTaskList == 'pending' ?
+                    <div className={styles.buttons_2}>
+                        <div className={styles.button_secondary}><EditIcon color='#9500f9' width='40px' height='40px' /></div>
+                        <div className={styles.button_primary} onClick={() => updatingFinish()}><CheckIcon color='#fff' width='40px' height='40px' /></div>
+                    </div>
+                    : null
+                }
             </div>
         </div>
     </>

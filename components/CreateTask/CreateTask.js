@@ -26,7 +26,7 @@ const CreateTask = (props) => {
         }
         title.value = '';
         description.value = '';
-        props.updating(Math.random);
+        props.setUpdate(Math.random);
     }
   return (
       <>
