@@ -9,6 +9,8 @@ const Task = (props) => {
         await props.delete(props.id);
         props.setUpdate(Math.random)
         props.getTasksStatus()
+        props.setNotification('Task deleted!')
+
     }
     const updatingFinish = async () => {
         await axios.post('https://api.8base.com/ckymbkwiz02w709mm5haec39s/webhook/webhook', {
@@ -18,6 +20,8 @@ const Task = (props) => {
         props.setUpdate(Math.random)
         props.getTasksStatus()
         setDone(true);
+        props.setNotification('Task done!')
+
     }
     
   return (

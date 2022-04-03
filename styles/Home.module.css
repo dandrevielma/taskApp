@@ -1,6 +1,7 @@
 .bg{
   width: 100vw;
   background: linear-gradient(100deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 65%, rgba(151,0,249,1) 65%, rgba(151,0,249,1) 100%);
+  background-attachment: fixed;
 }
 @media (min-width: 1200px){
   .content {
@@ -133,8 +134,7 @@
     width: 100%;
   }
   .tasks{
-    padding-bottom: 15px;
-    min-height: 600px;
+    padding-bottom: 25px;
   }
 
   .select_status{

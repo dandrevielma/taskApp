@@ -2,6 +2,9 @@ import { useState, useEffect } from 'react';
 import styles from '../styles/Home.module.css'
 import Task from '../components/Task/Task'
 import CreateTask from '../components/CreateTask/CreateTask'
+import Notification from '../components/Notification/Notification'
+import Head from 'next/head'
+
 const { showTasks, deleteTask } = require('../db/index');
 
 export default function Home() {
@@ -10,6 +13,7 @@ export default function Home() {
   const [tasksDone, setTasksDone] = useState(0);
   const [tasksPending, setTasksPending] = useState(0);
   const [update, setUpdate] = useState(0)
+  const [notification, setNotification] = useState('');
 
   const handleCurrentTaskList = (current) => {
     setCurrentTaskList(current)
@@ -34,20 +38,30 @@ export default function Home() {
 
   return (
     <>
+      <Head>
+        <title>Task App</title>
+        <meta name="Task Application - Organize your tasks"/>
+        <link rel="icon" href="/icons/favicon.ico" />
+      </Head>
       <div className={styles.bg}>
+      <Notification
+          info={notification}
+          setNotification={setNotification}
+        />
         <div className={styles.top_section}>
           <div className={styles.title}>
             You have
             <span className={styles.text_purple}>
             &nbsp; {tasksPending} &nbsp;
             </span>
-            tasks pending
+            {tasksPending != 1 ? 'tasks pending' : 'task pending'}
+
           </div>
-          <div className={styles.rounded_title}>
+          <div className={styles.rounded_title} onClick={() => {  setNotification(Math.random)}}>
             <span className={styles.text_purple}>
             {tasksDone} &nbsp;
             </span>
-            tasks done
+            {tasksDone != 1 ? 'tasks done' : 'task done'}
           </div>
         </div>
         <div className={styles.content}>
@@ -58,7 +72,10 @@ export default function Home() {
               </div>
             </div>
             <div className={styles.new_task}>
-              <CreateTask setUpdate={setUpdate} />
+              <CreateTask 
+                setUpdate={setUpdate}
+                setNotification={setNotification}
+              />
             </div>
           </div>
           <div className={styles.right_content}>
@@ -95,6 +112,7 @@ export default function Home() {
                       delete={deleteTask}
                       getTasksStatus={getTasksStatus}
                       currentTaskList={currentTaskList}
+                      setNotification={setNotification}
                       />
                   )
                 })

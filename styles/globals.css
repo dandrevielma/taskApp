@@ -15,19 +15,17 @@ a {
 * {
   box-sizing: border-box;
 }
-/* width */
+
 ::-webkit-scrollbar {
   width: 18px;
 }
 
-/* Track */
 ::-webkit-scrollbar-track {
   background: white;
   border-radius: 10px;
   margin: 40px 0px 20px 0px;
 }
 
-/* Handle */
 ::-webkit-scrollbar-thumb {
   background: rgba(151,0,249,1);
   border: solid 3px white;
@@ -35,7 +33,6 @@ a {
   margin: 5px;
 }
 
-/* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(151,0,249,.8);
 }
