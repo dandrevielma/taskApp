@@ -135,6 +135,7 @@
   }
   .tasks{
     padding-bottom: 25px;
+    min-height: 500px;
   }
 
   .select_status{
@@ -163,6 +164,8 @@
   }
   .bg{
     height: 100%;
+    /* background-attachment: fixed; */
+    object-fit: cover;
   }
 }
 .pointer{
