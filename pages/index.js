@@ -44,10 +44,13 @@ export default function Home() {
         <link rel="icon" href="/icons/favicon.ico" />
       </Head>
       <div className={styles.bg}>
-      <Notification
+      { notification != '' ?
+        <Notification
           info={notification}
           setNotification={setNotification}
         />
+        : null
+      }
         <div className={styles.top_section}>
           <div className={styles.title}>
             You have
