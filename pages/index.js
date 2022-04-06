@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import styles from '../styles/Home.module.css'
 import Task from '../components/Task/Task'
-import CreateTask from '../components/CreateTask/CreateTask'
+import CreateEdit from '../components/CreateEdit.js/CreateEdit'
 import Notification from '../components/Notification/Notification'
 import Head from 'next/head'
 
@@ -72,7 +72,7 @@ export default function Home() {
               </div>
             </div>
             <div className={styles.new_task}>
-              <CreateTask 
+              <CreateEdit 
                 setUpdate={setUpdate}
                 setNotification={setNotification}
               />

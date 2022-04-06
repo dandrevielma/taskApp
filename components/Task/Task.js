@@ -26,7 +26,7 @@ const Task = (props) => {
     
   return (
     <>
-        <div className={styles.card}>
+        <div data-testid="task" className={styles.card}>
             <div className={styles.title}>
                 {props.title}
             </div>
