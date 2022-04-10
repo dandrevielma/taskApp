@@ -14,6 +14,8 @@ export default function Home() {
   const [tasksPending, setTasksPending] = useState(0);
   const [update, setUpdate] = useState(0)
   const [notification, setNotification] = useState('');
+  const [edit, setEditMode] = useState(false);
+  const [editingTask, setEditingTask] = useState({});
 
   const handleCurrentTaskList = (current) => {
     setCurrentTaskList(current)
@@ -71,13 +73,19 @@ export default function Home() {
           <div className={styles.left_content}>
             <div className={styles.section_head}>
               <div className={styles.secondary_title}>
-                Create a new task
+                {
+                  !edit ? 'Create a new task'
+                  : 'Edit task'
+                }
               </div>
             </div>
             <div className={styles.new_task}>
               <CreateEdit 
                 setUpdate={setUpdate}
                 setNotification={setNotification}
+                edit={edit}
+                setEditMode={setEditMode}
+                editingTask={editingTask}
               />
             </div>
           </div>
@@ -116,6 +124,9 @@ export default function Home() {
                       getTasksStatus={getTasksStatus}
                       currentTaskList={currentTaskList}
                       setNotification={setNotification}
+                      editingTask={editingTask}
+                      setEditingTask={setEditingTask}
+                      setEditMode={setEditMode}
                       />
                   )
                 })

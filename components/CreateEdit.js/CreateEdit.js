@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import styles from '../Task/Card.module.css';
-const { addTask } = require('../../db/index');
+const { addTask, updateTask } = require('../../db/index');
 
 const CreateTask = (props) => {
     const [state, setState] = useState({
@@ -29,6 +29,25 @@ const CreateTask = (props) => {
         props.setUpdate(Math.random);
         props.setNotification('Task added!')
     }
+    const updateAndRefresh = async () => {
+        const title = document.getElementById('title');
+        const description = document.getElementById('description');
+
+        if( title.value == '' || description.value == ''){
+            alert('you need to fill all the form');
+        }else{
+
+            // console.log(props.editingTask.id, props.editingTask.title, props.editingTask.description, false)
+            await updateTask(props.editingTask.id, state.title, state.description, false).then(
+                () => {
+                    props.setUpdate(Math.random);
+                    props.setNotification('Task edited!')
+                }
+            )
+        }
+        title.value = '';
+        description.value = '';
+    }
   return (
       <>
         <div className={styles.card}>
@@ -36,24 +55,26 @@ const CreateTask = (props) => {
                 <input 
                     id='title' 
                     className={styles.create_task} 
-                    placeholder={!props.edit ? 'Title' : props.editTitle} 
+                    placeholder={!props.edit ? 'Title' : props.editingTask.title} 
                     maxLength={20} 
                     onChange={(e) => handleTitleChange(e)}/>
                 <input 
                     id='description' 
                     className={styles.create_task} 
-                    placeholder={!props.edit ? 'Description' : props.editDescription} 
+                    placeholder={!props.edit ? 'Description' : props.editingTask.description} 
                     maxLength={40} 
                     onChange={(e) => handleDescChange(e)}/>
                 <div className={styles.add_button}>
-                    <div className={styles.button_primary} onClick={() => addAndRefresh()}>
-                            {
-                                !props.edit ?
-                                <AddIcon color='#fff' width='40px' height='40px' />
-                                :
-                                <EditIcon color='#fff' width='40px' height='40px' />
-                            }
-                    </div>
+                    {
+                        !props.edit ?
+                        <div className={styles.button_primary} onClick={() => addAndRefresh()}>
+                            <AddIcon color='#fff' width='40px' height='40px' />
+                        </div>
+                        :
+                        <div className={styles.button_primary} onClick={() => updateAndRefresh()}>
+                            <EditIcon color='#fff' width='40px' height='40px' />
+                        </div>
+                    }
                 </div>
 
             </div>

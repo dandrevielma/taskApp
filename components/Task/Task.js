@@ -23,6 +23,14 @@ const Task = (props) => {
         props.setNotification('Task done!')
 
     }
+    const editTask = () => {
+        props.setEditMode(true)
+        props.setEditingTask({
+            title: props.title,
+            description: props.description,
+            id: props.id,
+        })
+    }
     
   return (
     <>
@@ -38,8 +46,12 @@ const Task = (props) => {
                 {
                     props.currentTaskList == 'pending' ?
                     <div className={styles.buttons_2}>
-                        <div className={styles.button_secondary}><EditIcon color='#9500f9' width='40px' height='40px' /></div>
-                        <div className={styles.button_primary} onClick={() => updatingFinish()}><CheckIcon color='#fff' width='40px' height='40px' /></div>
+                        <div className={styles.button_secondary} onClick={() => editTask()}>
+                            <EditIcon color='#9500f9' width='40px' height='40px' />
+                        </div>
+                        <div className={styles.button_primary} onClick={() => updatingFinish()}>
+                            <CheckIcon color='#fff' width='40px' height='40px' />
+                        </div>
                     </div>
                     : null
                 }
