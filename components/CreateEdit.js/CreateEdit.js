@@ -36,18 +36,23 @@ const CreateTask = (props) => {
                 <input 
                     id='title' 
                     className={styles.create_task} 
-                    placeholder='Title' 
+                    placeholder={!props.edit ? 'Title' : props.editTitle} 
                     maxLength={20} 
                     onChange={(e) => handleTitleChange(e)}/>
                 <input 
                     id='description' 
                     className={styles.create_task} 
-                    placeholder='Description' 
+                    placeholder={!props.edit ? 'Description' : props.editDescription} 
                     maxLength={40} 
                     onChange={(e) => handleDescChange(e)}/>
                 <div className={styles.add_button}>
                     <div className={styles.button_primary} onClick={() => addAndRefresh()}>
-                            <AddIcon color='#fff' width='40px' height='40px' />
+                            {
+                                !props.edit ?
+                                <AddIcon color='#fff' width='40px' height='40px' />
+                                :
+                                <EditIcon color='#fff' width='40px' height='40px' />
+                            }
                     </div>
                 </div>
 
@@ -60,5 +65,10 @@ const CreateTask = (props) => {
 export default CreateTask;
 
 const AddIcon = (props) => {
-    return (<svg id="Layer_4" data-name="Layer 4" fill={props.color} width={props.width} height={props.height} viewBox="0 0 600 600"><polygon class="cls-1" points="482.35 266.84 333.16 266.84 333.16 117.65 266.84 117.65 266.84 266.84 117.65 266.84 117.65 333.16 266.84 333.16 266.84 482.35 333.16 482.35 333.16 333.16 482.35 333.16 482.35 266.84"/></svg>)
+    return (<svg id="Layer_4" data-name="Layer 4" fill={props.color} width={props.width} height={props.height} viewBox="0 0 600 600"><polygon className="cls-1" points="482.35 266.84 333.16 266.84 333.16 117.65 266.84 117.65 266.84 266.84 117.65 266.84 117.65 333.16 266.84 333.16 266.84 482.35 333.16 482.35 333.16 333.16 482.35 333.16 482.35 266.84"/></svg>)
+}
+const EditIcon = (props) => {
+    return (<svg id="Layer_4" data-name="Layer 4" fill={props.color} width={props.width} height={props.height} viewBox="0 0 600 600"><defs><style>.cls-1</style></defs><polygon className="cls-1" points="405.39 452.43 247.5 294.3 294.44 247.44 452.34 405.54 405.39 452.43"/><rect class="cls-1" x="166.19" y="159.32" width="66.31" height="79.87" transform="translate(-82.51 199.32) rotate(-45)"/></svg>
+    
+    )
 }
